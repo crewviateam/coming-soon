@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crewvia — Coming Soon</title>
+    <link rel="icon" type="image/png" href="LOGO ICON PNG 2.png">
+    <meta name="description" content="Crewvia is crafting something exceptional. Stay tuned.">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #2ec4b6, #45b7aa, #7ec88a, #c5d94a, #d4e157);
+            color: #fff;
+            height: 100dvh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* ── Noise Texture ── */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 0;
+            mix-blend-mode: overlay;
+        }
+
+        /* ── Glass Glow Overlay ── */
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+            pointer-events: none;
+            z-index: 0;
+            mix-blend-mode: soft-light;
+        }
+
+        .page {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+            padding: 32px;
+            position: relative;
+        }
+
+        /* ── Logo (Top Left) ── */
+        .logo {
+            position: absolute;
+            top: 32px;
+            left: 32px;
+            width: 48px;
+            height: 48px;
+            animation: fadeIn 0.8s ease-out both;
+        }
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
+        }
+
+        /* ── Year badge ── */
+        .year {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.8);
+            animation: fadeIn 0.8s ease-out both;
+        }
+
+        /* ── Center content ── */
+        .center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 16px;
+        }
+
+        /* ── Big heading ── */
+        .heading {
+            font-family: 'Rajdhani', sans-serif;
+            line-height: 0.85;
+            text-transform: uppercase;
+        }
+
+        .heading .line {
+            display: block;
+            overflow: hidden; /* For reveal effect */
+        }
+
+        .heading .line span {
+            display: block;
+            transform: translateY(100%);
+            animation: revealUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* COMING */
+        .heading .l1 {
+            font-size: clamp(3rem, 12vw, 8rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            color: rgba(255,255,255,0.6);
+        }
+        .heading .l1 span { animation-delay: 0.1s; }
+
+        /* SOON */
+        .heading .l2 {
+            font-size: clamp(3.5rem, 14vw, 9.5rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            color: #fff;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.1);
+        }
+        .heading .l2 span { animation-delay: 0.25s; }
+
+        .subtitle {
+            margin-top: 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 0.02em;
+            opacity: 0;
+            animation: fadeIn 1s 0.8s ease-out forwards;
+        }
+
+        /* ── Service tags ── */
+        .tags {
+            display: flex;
+            gap: 16px; 
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 12px;
+            opacity: 0;
+            animation: fadeIn 1s 1s ease-out forwards;
+        }
+        .tag {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.85rem; 
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.9);
+            padding: 6px 16px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 4px; /* Slightly squarish for modular feel */
+            transition: all 0.3s ease;
+        }
+        .tag:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.8);
+        }
+
+        /* ── Footer ── */
+        footer {
+            position: absolute;
+            bottom: 32px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            animation: fadeIn 1s 1.2s ease-out forwards;
+            opacity: 0;
+        }
+
+        /* ── Animations ── */
+        @keyframes revealUp {
+            from { transform: translateY(110%); }
+            to   { transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page">
+
+        <div class="logo">
+            <img src="LOGO ICON PNG 2.png" alt="Crewvia Logo">
+        </div>
+
+        <span class="year">2026</span>
+
+        <div class="center">
+            <div class="heading">
+                <div class="line l1"><span>COMING</span></div>
+                <div class="line l2"><span>SOON</span></div>
+            </div>
+
+            <p class="subtitle">Architecting the future of digital experiences.</p>
+        </div>
+
+        <div class="tags">
+            <span class="tag">Create</span>
+            <span class="tag">Innovate</span>
+            <span class="tag">Deploy</span>
+        </div>
+
+    </div>
+
+    <footer>© 2026 Crewvia Agency</footer>
+
+</body>
+</html>
